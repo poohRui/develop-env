@@ -62,7 +62,6 @@ RUN /tmp/pyenv_install.sh && echo "\nexport PATH=\"\$HOME/.pyenv/bin:\$PATH\"\ne
   && v=3.8.5;wget http://npm.taobao.org/mirrors/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/ \
   && CONFIGURE_OPTS=--enable-shared ~/.pyenv/bin/pyenv install $v && ~/.pyenv/bin/pyenv global $v
 
-RUN ls /tmp
 RUN cp -r /tmp/dev_pkg ~/
 
 RUN rm -rf /tmp/*
