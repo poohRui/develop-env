@@ -1,5 +1,7 @@
 # Docker日常开发环境配置
 
+> 许多内容都是从 [wyg1997/DockerFiles](https://github.com/wyg1997/DockerFiles)，[wyg1997/Linux-configs](https://github.com/wyg1997/Linux-configs)处借鉴，非常感谢！
+
 ## 组件
 
 - oh-my-zsh
