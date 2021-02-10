@@ -29,13 +29,13 @@ echo -n "Please enter the name for docker: "
 read NAME
 if [ -z $NAME ]
 then
-    NAME="None"
+    NAME="<None>"
 fi
 echo -n "Please enter the tag for docker: "
 read TAG
 if [ -z $TAG ]
 then
-    NAME="None"
+    NAME="<None>"
 fi
 echo -n "GPU environment or not: (Y/N): "
 read GPU
@@ -44,6 +44,15 @@ if [ $GPU = 'Y' ] || [ $GPU = 'y' ]; then
     read CUDAVERSION
     echo -n "Please enter the cudnn version: "
     read CUDNNVERSION
+    echo -n "Please enter operation system and version (default: Ubuntu18.04): "
+    read VERSION
+    if [ -z $VERSION ]
+    then
+        VERSION="Ubuntu18.04"
+    fi
+    support_version=("cu10.2_cudnn7_Ubuntu18.04")
+		CheckLegal cu${CUDAVERSION}_cudnn${CUDNNVERSION}_$VERSION $support_version
+		docker build -t $NAME:$TAG -f ./docker_files/Dockerfile_cu${CUDAVERSION}_cudnn${CUDNNVERSION}_$VERSION .
 else
     echo -n "Please enter operation system and version (default: Ubuntu18.04): "
     read VERSION
@@ -53,7 +62,6 @@ else
     fi
     support_version=("Ubuntu18.04")
     CheckLegal $VERSION $support_version
+		docker build -t $NAME:$TAG -f ./docker_files/Dockerfile_$VERSION .
 fi
-
-docker build -t $NAME:$TAG -f ./docker_files/Dockerfile_$VERSION .
 
