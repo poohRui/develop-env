@@ -6,6 +6,6 @@ tar xf cmake-3.14.1.tar.gz
 cd cmake-3.14.1
 ./bootstrap --system-curl
 make
-make install
+sudo make install
 cd ..
 rm -rf cmake-3.14.1*
