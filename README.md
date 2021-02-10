@@ -15,6 +15,6 @@
   ```
 - 启动并运行
   ```shell
-  docker run -d -it -P --name ${name} ${docker-name}:${docker-tag} /bin/zsh
+  docker run -d -it -P --name ${name} ${image-name}:${image-tag} /bin/zsh
   docker exec -it ${name} /bin/zsh
   ```
