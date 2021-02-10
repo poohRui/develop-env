@@ -40,7 +40,8 @@ COPY oh-my-zsh/oh-my-zsh_install.sh /tmp
 COPY oh-my-zsh/oh-my-zsh_plugins_install.sh /tmp
 COPY pip/pip.conf /tmp
 COPY pyenv/pyenv_install.sh /tmp
-COPY dev_pkg/ /tmp
+RUN mkdir -p /tmp/dev_pkg
+COPY dev_pkg/ /tmp/dev_pkg
 
 USER $USERNAME
 WORKDIR /home/$USERNAME
@@ -53,7 +54,7 @@ RUN /tmp/oh-my-zsh_install.sh
 RUN /tmp/oh-my-zsh_plugins_install.sh
 
 RUN mkdir -p ~/.config && git clone https://github.com/tmux-plugins/tmux-resurrect ~/.config/tmux-resurrect
-RUN cp /tmp/.tmux.conf ~/ && cp /tmp/.tmux.conf.local ~/ && cp /tmp/.zshrc ~/ && mkdir -p ~/.config/pip && cp /tmp/pip.conf ~/.config/pip \
+RUN cp /tmp/.tmux.conf ~/ && cp /tmp/.tmux.conf.local ~/ && cp /tmp/.zshrc ~/ && mkdir ~/.config/pip && cp /tmp/pip.conf ~/.config/pip \
   && cp /tmp/bullet-train.zsh-theme ~/.oh-my-zsh/themes
 
 # Install pyenv and python 3.8.5
@@ -61,6 +62,7 @@ RUN /tmp/pyenv_install.sh && echo "\nexport PATH=\"\$HOME/.pyenv/bin:\$PATH\"\ne
   && v=3.8.5;wget http://npm.taobao.org/mirrors/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/ \
   && CONFIGURE_OPTS=--enable-shared ~/.pyenv/bin/pyenv install $v && ~/.pyenv/bin/pyenv global $v
 
+RUN ls /tmp
 RUN cp -r /tmp/dev_pkg ~/
 
 RUN rm -rf /tmp/*

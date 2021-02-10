@@ -37,7 +37,8 @@ COPY oh-my-zsh/oh-my-zsh_install.sh /tmp
 COPY oh-my-zsh/oh-my-zsh_plugins_install.sh /tmp
 COPY pip/pip.conf /tmp
 COPY pyenv/pyenv_install.sh /tmp
-COPY dev_pkg/ /tmp
+RUN mkdir -p /tmp/dev_pkg
+COPY dev_pkg/ /tmp/dev_pkg
 
 USER $USERNAME
 WORKDIR /home/$USERNAME
@@ -58,6 +59,7 @@ RUN /tmp/pyenv_install.sh && echo "\nexport PATH=\"\$HOME/.pyenv/bin:\$PATH\"\ne
   && v=3.8.5;wget http://npm.taobao.org/mirrors/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/ \
   && CONFIGURE_OPTS=--enable-shared ~/.pyenv/bin/pyenv install $v && ~/.pyenv/bin/pyenv global $v
 
+RUN ls /tmp
 RUN cp -r /tmp/dev_pkg ~/
 
 RUN rm -rf /tmp/*
