@@ -22,7 +22,7 @@
 	# build container for cpu only
   docker run -d -it -P --name ${name} ${image-name}:${image-tag} /bin/zsh
 	# build container support gpu
-  docker run -d -it --shm-size=8G -P --runtime=nvidia ${image-name}:${image-tag} /bin/zsh
+  docker run -d -it --shm-size=8G -P --name ${name} --runtime=nvidia ${image-name}:${image-tag} /bin/zsh
   docker exec -it ${name} /bin/zsh
   ```
 ## 其他说明
