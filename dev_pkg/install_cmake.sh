@@ -5,7 +5,7 @@ wget https://github.com/Kitware/CMake/releases/download/v3.14.1/cmake-3.14.1.tar
 tar xf cmake-3.14.1.tar.gz
 cd cmake-3.14.1
 ./bootstrap --system-curl
-make
+make -j48
 sudo make install
 cd ..
 rm -rf cmake-3.14.1*
