@@ -49,9 +49,9 @@ RUN sudo usermod -s /bin/zsh ubuntu
 RUN /tmp/oh-my-zsh_install.sh 
 RUN /tmp/oh-my-zsh_plugins_install.sh
 
-RUN cp /tmp/.tmux.conf ~/ && cp /tmp/.tmux.conf.local ~/ && cp /tmp/.zshrc ~/ && cp /tmp/pip.conf ~/.pip \
-  && cp /tmp/bullet-train.zsh-theme ~/.oh-my-zsh/themes
 RUN mkdir -p ~/.config && git clone https://github.com/tmux-plugins/tmux-resurrect ~/.config/tmux-resurrect
+RUN cp /tmp/.tmux.conf ~/ && cp /tmp/.tmux.conf.local ~/ && cp /tmp/.zshrc ~/ && mkdir ~/.config/pip && cp /tmp/pip.conf ~/.config/pip \
+  && cp /tmp/bullet-train.zsh-theme ~/.oh-my-zsh/themes
 
 # Install pyenv and python 3.8.5
 RUN /tmp/pyenv_install.sh && echo "\nexport PATH=\"\$HOME/.pyenv/bin:\$PATH\"\neval \"\$(pyenv init -)\"\neval \"\$(pyenv virtualenv-init -)\"" >> ~/.zshrc \
