@@ -26,8 +26,19 @@
   docker exec -it ${name} /bin/zsh
   ```
 ## 其他说明
-- 如果想使用vscode的remote-ssh连接容器进行开发
-	- 在容器外生成密钥
-  - 将公钥拷贝到容器内
-  - 修改容器内sshd的配置并重启服务
+### 使用vscode的remote-ssh
 
+- 在容器外生成密钥
+- 将公钥拷贝到容器内
+- 修改容器内sshd的配置并重启服务
+
+### YouCompleteMe配置个人项目
+
+> 参考：
+>
+> * https://github.com/ycm-core/YouCompleteMe/issues/1981
+> * https://github.com/ycm-core/YouCompleteMe#c-family-semantic-completion
+
+1. 对cmake增加`-DCMAKE_EXPORT_COMPILE_COMMANDS=ON`标签
+2. 将生成的`compile_command.json`拷贝或者软链接到个人项目的根目录
+3. 将用户目录下的`.ycm_extra_conf.py`拷贝到项目的根目录并修改`compilation_database_folder`为项目的根路径。
