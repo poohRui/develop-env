@@ -1,29 +1,8 @@
 #!/bin/bash
+set -e
 
-function Print()
-{
-    support_version=$1
-    for ver in $support_version
-    do
-      echo $ver
-    done
-}
-
-function CheckLegal()
-{
-    version=$1
-    support_version=$2
-    for ver in $support_version
-    do
-        if [ $ver = $version ]
-	then
-	  return 0
-	fi
-    done
-    echo "Unsupported, only following versions available: " 
-    Print $support_version
-    exit -1
-}
+USERNAME=$USER
+USER_UID=$UID
 
 echo -n "Please enter the name for docker: "
 read NAME
@@ -37,31 +16,11 @@ if [ -z $TAG ]
 then
     NAME="<None>"
 fi
-echo -n "GPU environment or not: (Y/N): "
-read GPU
-if [ $GPU = 'Y' ] || [ $GPU = 'y' ]; then 
-    echo -n "Please enter the cuda version: "
-    read CUDAVERSION
-    echo -n "Please enter the cudnn version: "
-    read CUDNNVERSION
-    echo -n "Please enter operation system and version (default: Ubuntu18.04): "
-    read VERSION
-    if [ -z $VERSION ]
-    then
-        VERSION="Ubuntu18.04"
-    fi
-    support_version=("cu10.2_cudnn7_Ubuntu18.04")
-		CheckLegal cu${CUDAVERSION}_cudnn${CUDNNVERSION}_$VERSION $support_version
-		docker build -t $NAME:$TAG -f ./docker_files/Dockerfile_cu${CUDAVERSION}_cudnn${CUDNNVERSION}_$VERSION .
-else
-    echo -n "Please enter operation system and version (default: Ubuntu18.04): "
-    read VERSION
-    if [ -z $VERSION ]
-    then
-        VERSION="Ubuntu18.04"
-    fi
-    support_version=("Ubuntu18.04")
-    CheckLegal $VERSION $support_version
-		docker build -t $NAME:$TAG -f ./docker_files/Dockerfile_$VERSION .
+echo -n "Please enter the basic image (default: ubuntu:18.04): "
+read IMAGE
+if [ -z $IMAGE]
+then
+    IMAGE="ubuntu:18.04"
 fi
+docker build --build-arg IMAGE=$IMAGE --build-arg USERNAME=$USERNAME --build-arg USER_UID=$USER_UID -t $NAME:$TAG .
 
