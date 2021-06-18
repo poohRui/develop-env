@@ -1,4 +1,9 @@
 #!/bin/bash
 
-git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+set -e
+
+GIT_PREFIX=${GIT_PREFIX:-https://github.com}
+REPO_OWNER=${REPO_OWNER:-zsh-users}
+
+git clone ${GIT_PREFIX}/${REPO_OWNER}/zsh-autosuggestions.git ~/.oh-my-zsh/plugins/zsh-autosuggestions
+git clone ${GIT_PREFIX}/${REPO_OWNER}/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting

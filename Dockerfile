@@ -8,6 +8,7 @@ LABEL Discription="Develop environment" version="1.0"
 ARG USERNAME=visitor
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Basic configurations for specific system including neovim and nodejs
 COPY scripts/basic_config.sh /tmp
@@ -28,11 +29,14 @@ WORKDIR /home/$USERNAME
 
 RUN sudo chown -R $USERNAME:$USERNAME /tmp
 
+ARG GIT_PREFIX=https://gitee.com
+ARG REPO_OWNER=yuruilee
+
 # Install oh-my-zsh
 RUN sudo usermod -s /bin/zsh $USERNAME 
 RUN /tmp/oh-my-zsh_install.sh && /tmp/oh-my-zsh_plugins_install.sh
 
-RUN mkdir -p ~/.config && git clone https://github.com/tmux-plugins/tmux-resurrect ~/.config/tmux-resurrect \
+RUN mkdir -p ~/.config \
   && cp /tmp/.tmux.conf ~/ && cp /tmp/.tmux.conf.local ~/ && cp /tmp/.zshrc ~/ && mkdir ~/.config/pip && cp /tmp/pip.conf ~/.config/pip \
   && cp -r /tmp/powerlevel10k ~/.oh-my-zsh/themes
 

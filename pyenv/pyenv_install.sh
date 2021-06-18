@@ -7,6 +7,10 @@ if [ -z "$PYENV_ROOT" ]; then
   PYENV_ROOT="${HOME}/.pyenv"
 fi
 
+# Default settings
+GIT_PREFIX=${GIT_PREFIX:-https://github.com}
+REPO_OWNER=${REPO_OWNER:-pyenv}
+
 colorize() {
   if [ -t 1 ]; then printf "\e[%sm%s\e[m" "$1" "$2"
   else echo -n "$2"
@@ -51,12 +55,12 @@ else
   GITHUB="https://github.com"
 fi
 
-checkout "${GITHUB}/pyenv/pyenv.git"            "${PYENV_ROOT}"
-checkout "${GITHUB}/pyenv/pyenv-doctor.git"     "${PYENV_ROOT}/plugins/pyenv-doctor"
-checkout "${GITHUB}/pyenv/pyenv-installer.git"  "${PYENV_ROOT}/plugins/pyenv-installer"
-checkout "${GITHUB}/pyenv/pyenv-update.git"     "${PYENV_ROOT}/plugins/pyenv-update"
-checkout "${GITHUB}/pyenv/pyenv-virtualenv.git" "${PYENV_ROOT}/plugins/pyenv-virtualenv"
-checkout "${GITHUB}/pyenv/pyenv-which-ext.git"  "${PYENV_ROOT}/plugins/pyenv-which-ext"
+checkout "${GIT_PREFIX}/${REPO_OWNER}/pyenv.git"            "${PYENV_ROOT}"
+checkout "${GIT_PREFIX}/${REPO_OWNER}/pyenv-doctor.git"     "${PYENV_ROOT}/plugins/pyenv-doctor"
+checkout "${GIT_PREFIX}/${REPO_OWNER}/pyenv-installer.git"  "${PYENV_ROOT}/plugins/pyenv-installer"
+checkout "${GIT_PREFIX}/${REPO_OWNER}/pyenv-update.git"     "${PYENV_ROOT}/plugins/pyenv-update"
+checkout "${GIT_PREFIX}/${REPO_OWNER}/pyenv-virtualenv.git" "${PYENV_ROOT}/plugins/pyenv-virtualenv"
+checkout "${GIT_PREFIX}/${REPO_OWNER}/pyenv-which-ext.git"  "${PYENV_ROOT}/plugins/pyenv-which-ext"
 
 if ! command -v pyenv 1>/dev/null; then
   { echo
