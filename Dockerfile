@@ -34,7 +34,7 @@ ARG REPO_OWNER=yuruilee
 
 # Install oh-my-zsh
 RUN sudo usermod -s /bin/zsh $USERNAME 
-RUN /tmp/oh-my-zsh_install.sh && /tmp/oh-my-zsh_plugins_install.sh && echo "\nexport TERM=xterm-256color" >> ~/.zshrc
+RUN /tmp/oh-my-zsh_install.sh && /tmp/oh-my-zsh_plugins_install.sh
 
 RUN mkdir -p ~/.config \
   && cp /tmp/.tmux.conf ~/ && cp /tmp/.tmux.conf.local ~/ && cp /tmp/.zshrc ~/ && mkdir ~/.config/pip && cp /tmp/pip.conf ~/.config/pip \
