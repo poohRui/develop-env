@@ -34,21 +34,23 @@ ARG REPO_OWNER=yuruilee
 
 # Install oh-my-zsh
 RUN sudo usermod -s /bin/zsh $USERNAME 
-RUN /tmp/oh-my-zsh_install.sh && /tmp/oh-my-zsh_plugins_install.sh
+RUN /tmp/oh-my-zsh_install.sh && /tmp/oh-my-zsh_plugins_install.sh && echo "\nexport TERM=xterm-256color" >> ~/.zshrc
 
 RUN mkdir -p ~/.config \
   && cp /tmp/.tmux.conf ~/ && cp /tmp/.tmux.conf.local ~/ && cp /tmp/.zshrc ~/ && mkdir ~/.config/pip && cp /tmp/pip.conf ~/.config/pip \
   && cp -r /tmp/powerlevel10k ~/.oh-my-zsh/themes
 
 # Install pyenv and python 3.8.5
-RUN /tmp/pyenv_install.sh && echo "\nexport PATH=\"\$HOME/.pyenv/bin:\$PATH\"\neval \"\$(pyenv init -)\"\neval \"\$(pyenv virtualenv-init -)\"" >> ~/.zshrc \
+RUN /tmp/pyenv_install.sh && echo "export PYENV_ROOT=\"$HOME/.pyenv\"\nexport PATH=\"\$PYENV_ROOT/bin:\$PATH\"\neval \"\$(pyenv init --path)\"" >> ~/.zprofile && echo "\neval \"\$(pyenv init -)\"" >> ~/.zshrc \
   && v=3.8.5;wget http://npm.taobao.org/mirrors/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/ \
   && CONFIGURE_OPTS=--enable-shared ~/.pyenv/bin/pyenv install $v && ~/.pyenv/bin/pyenv global $v
-
 
 # Remove all tmp files
 RUN rm -rf /tmp/*
 
 EXPOSE 22 8886 8887 8888
+# Seem unnecessary since enter the container using `exec`
+ENTRYPOINT [ "/bin/zsh" ]
+CMD ["-l"]
 
 
