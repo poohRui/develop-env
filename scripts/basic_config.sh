@@ -52,7 +52,6 @@ function basic_config_on_ubuntu()
       && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
       && chmod 0440 /etc/sudoers.d/$USERNAME
 
-    # export DEBIAN_FRONTEND=noninteractive
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
     echo 'Asia/Shanghai' >/etc/timezone
 

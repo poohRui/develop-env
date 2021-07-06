@@ -5,7 +5,7 @@ export LC_ALL=en_US.UTF-8
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/ubuntu/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -117,6 +117,9 @@ alias ll="ls -al"
 # tmux use color 256
 alias tmux="tmux -2"
 
+# normal shell use color 256
+export TERM=xterm-256color
+
 # Sumup the num of files or dirs                                                                                                                                                                            
 alias numf="ls -l | grep "^-" | wc -l"                                                                                                                                                                      
 alias numd="ls -l | grep "^d" | wc -l"
@@ -155,6 +158,8 @@ ex ()
 function upload {
     url=$(curl https://oshi.at -F f=@$1 | tail -1 | sed 's/DL: //')
     echo "url: $url"
-    tmux set-buffer $url
+    if [ ! -z "${TMUX}" ];then
+        tmux set-buffer $url
+    fi
 }
 
