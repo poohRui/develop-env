@@ -18,7 +18,7 @@ then
 fi
 echo -n "Please enter the basic image (default: ubuntu:18.04): "
 read IMAGE
-if [ -z $IMAGE]
+if [ -z $IMAGE ]
 then
     IMAGE="ubuntu:18.04"
 fi
