@@ -6,11 +6,11 @@ LINUX_TYPE=$2
 
 function install_python_on_ubuntu()
 {
-	sudo apt-get install python3.8
+	sudo apt-get install -y python3.8
 	sudo rm /usr/bin/python3
 	sudo ln -s /usr/bin/python3.8 /usr/bin/python3
 	sudo apt-get update
-	sudo apt-get install python3-pip
+	sudo apt-get install -y python3-pip
 }
 
 if [ ${LINUX_TYPE} == "ubuntu" ]; then

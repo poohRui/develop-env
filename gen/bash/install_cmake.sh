@@ -6,16 +6,17 @@ LINUX_TYPE=$2
 
 function install_cmake_dependences_on_ubuntu()
 {
-		sudo apt-get update && apt-get install -y curl libcurl4-openssl-dev zlib1g zlib1g.dev
+		sudo apt-get update && sudo apt-get install -y curl libcurl4-openssl-dev zlib1g zlib1g.dev unzip
 }
 
 function install_cmake()
 {
-		wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz
-		tar xf cmake-${CMAKE_VERSION}.tar.gz
-		cd cmake-${CMAKE_VERSION}
+		#wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz
+                wget https://gitee.com/yuruilee/CMake/repository/archive/v${CMAKE_VERSION}
+		unzip v${CMAKE_VERSION}
+		cd CMake-v${CMAKE_VERSION}
 		./bootstrap --system-curl
-		make -j48
+		make
 		sudo make install
 		cd ..
 		rm -rf cmake-${CMAKE_VERSION}*

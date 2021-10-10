@@ -1,7 +1,7 @@
 cuda_version: "11.0"
 cudnn_version: "7"
 cmake_version: "3.16.1"
-gcc_version: "8.2"
+gcc_version: "8"
 python_version: "3.7.0"
 linux_type: "ubuntu"
 linux_version: "18.04"
